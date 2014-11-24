@@ -1,0 +1,10 @@
+{
+  "firebase": "ang-news-max",
+  "rules": "security-rules.json"
+  "public": "dist",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

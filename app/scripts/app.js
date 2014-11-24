@@ -10,47 +10,77 @@
  */
 var app = angular
   .module('angNewsApp', [
-    'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
     'firebase'
-  ]).constant('FIREBASE_URL', 'https://ang-news-max.firebaseio.com/')
-  .config(function ($routeProvider) {
+  ]).constant('FIREBASE_URL', 'https://ang-news-max.firebaseio.com/');
+
+app.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/posts.html',
         controller: 'PostsCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .when('/posts/:postId', {
+      .when('/posts/:postId',{
         templateUrl: 'views/showpost.html',
         controller: 'PostViewCtrl'
       })
       .when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'AuthCtrl',
-        resolve: {
-          user: function(Auth) {
-            return Auth.resolveUser();
-          }
-        }
+        controller: 'AuthCtrl'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'AuthCtrl',
-        resolve: {
-          user: function(Auth){
-            return Auth.resolveUser();
-          }
-        }
+        controller: 'AuthCtrl'
+      })
+      .when('/users/:username', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
   });
+
+  // app.config(function ($routeProvider) {
+  //   $routeProvider
+  //     .when('/', {
+  //       templateUrl: 'views/posts.html',
+  //       controller: 'PostsCtrl'
+  //     })
+  //     .when('/posts/:postId', {
+  //       templateUrl: 'views/showpost.html',
+  //       controller: 'PostViewCtrl'
+  //     })
+  //     .when('/register', {
+  //       templateUrl: 'views/register.html',
+  //       controller: 'AuthCtrl',
+  //       // resolve: {
+  //       //   user: function(Auth) {
+  //       //     return Auth.resolveUser();
+  //       //   }
+  //       // }
+  //     })
+  //     .when('/login', {
+  //       templateUrl: 'views/login.html',
+  //       controller: 'AuthCtrl',
+  //       // resolve: {
+  //       //   user: function(Auth){
+  //       //     return Auth.resolveUser();
+  //       //   }
+  //       // }
+  //     })
+  //     // .when('/users/:userId', {
+  //     //   templateUrl: 'views/profile.html',
+  //     //   controller: 'ProfileCtrl'
+  //     // })
+  //     .when('/users/:username', {
+  //       templateUrl: 'views/profile.html',
+  //       controller: 'ProfileCtrl'
+  //     })
+  //     .otherwise({
+  //       redirectTo: '/'
+  //     });
+  // });

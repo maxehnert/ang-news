@@ -1,19 +1,55 @@
-<div class="container posts-page">
-  <div class="post row" ng-repeat="post in posts">
-    <div class="col-xs-1"></div>
-    <div class="col-md-9 col-xs-11">
-      <div class="info">
-        <a ng-href="{{ post.url }}">
-          {{ post.title }}
-          <span class="url">({{ post.url | hostnameFromUrl }})</span>
-        </a>
+<div class="tab-content">
+  <div ng-include="'views/posts.html'" class="tab-pane active" id="submissions" ng-controller="PostsCtrl"></div>
+  <div class="container posts-page tab-pane" id="comments">
+    <div class="post row" ng-repeat="(commentId, comment) in comments">
+      <div class="col-xs-1">
+
       </div>
-      <div>
-        <span>submitted by <a ng-href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a></span>
-        &mdash;
-        <a ng-href="#/posts/{{ post.$id }}">comments</a>
-        <a ng-click="deletePost(post)" ng-show='user.uid === post.creatorUID'>delete</a>
+      <div class="col-md-9 col-xs-11">
+        <div class="info">
+          <a href="{{ commentedPosts[commentId].url }}">{{ commentedPosts[commentId].title }}</a>
+          <span class="url">({{ commentedPosts[commentId].url | hostnameFromUrl }})</span>
+        </div>
+
+        <a href="#/posts/{{ commentedPosts[commentId].$id }}">comments</a>
+        <p>{{ comment.text }}</p>
+      </div>
+      <div class="col-md-2">
+
       </div>
     </div>
   </div>
 </div>
+
+<!-- <div class="container posts-page">
+  <div class="post row" ng-repeat="(postId, post) in posts">
+    <div class="col-xs-1">
+      <div class="vote up"><span ng-hide="downVoted(post)" ng-click="upVotePost(postId, upVoted(post))">▲</span></div>
+      <div class="vote down"><span ng-hide="upVoted(post)" ng-click="downVotePost(postId, downVoted(post))">▼</span></div>
+    </div>
+    <div class="col-md-9 col-xs-11">
+      <div class="info">
+        <a href="{{ post.url }}">
+          {{ post.title }}
+          <span class="url">({{ post.url | hostnameFromUrl}})</span>
+        </a>
+      </div>
+      <div>
+        <span>{{ post.score || 0 }} votes</span>
+        —
+        <span>submitted by <a href="#/users/{{ post.owner }}">{{ post.owner }}</a></span>
+        —
+        <a href="#/posts/{{ postId }}">comments</a>
+        <a ng-click="deletePost(postId)" ng-show="signedIn() && post.owner === currentUser.username">delete</a>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+ -->
+<!-- <div>
+  <a ng-href="{{ post.url }}">{{ post.title }}</a>
+</div>
+
+<a ng-href="#/posts">Back to Posts</a>
+ -->
